@@ -1,0 +1,327 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<style>
+    .btn-space {
+        margin-left: -5%;
+        background-color: cornflowerblue;
+        font-size: large;
+    }
+
+    legend {
+        padding: 0;
+        margin-left: 10px;
+        margin-bottom: -9px;
+        border: 0;
+        color: #999999;
+        background-color: white;
+    }
+</style>
+
+
+<!-- Tablee -->
+
+<div ng-app="myApp">
+
+    <div class="alert alert-success" id="MensagemSucesso" hidden >
+        <p class="text-center">Cadastrado com Successo!</p>
+    </div>
+    <div class="alert alert-warning"id="MensagemErro" hidden>
+        <p class="text-center">Atenção, aconteceu algum erro.</p> 
+    </div>
+    <div class="alert alert-info" id="MesagemEditar" hidden>
+        <p class="text-center">Editado com sucesso</p>
+    </div>
+    <div class="alert alert-success" id="MensagemDeletar" hidden>
+        <p class="text-center">Deletado com Successo!</p>
+    </div>
+
+    <div ng-controller="myCtrl" ng-init="BuscarPessoa()" class="divList">
+        <h2 class="text-center">Lista de Pessoas</h2>
+        <button type="button" class="btn btn-success btn-lg" data-toggle="modal" id="modalForm" data-target="#myModal"><i class="glyphicon glyphicon-plus"></i>  Pessoa </button>
+        <p class="divHead"></p>
+        <table cellpadding="12" class="table table-bordered table-hover">
+            <tr class="text-center" style="background-color: #828282">
+                <td>
+                    <b>ID</b>
+                </td>
+                <td>
+                    <b>Nome</b>
+                </td>
+                <td>
+                    <b>Idade</b>
+                </td>
+                <td>
+                    <b>Email</b>
+                </td>
+                <td>
+                    <b>Skype</b>
+                </td>
+                <td>
+                    <b>Cidade</b>
+                </td>
+                <td>
+                    <b>Telefone</b>
+                </td>
+                <td>
+                    <b>Disponibilidade</b>
+                </td>
+                <td>
+                    <b>Horario</b>
+                </td>
+                <td class="hidden">
+                    <b>Experiencias</b>
+                </td>
+                <td class="hidden">
+                    <b>TipoConta</b>
+                </td>
+                <td>
+                    <b>Opções</b>
+                </td>
+            </tr>
+            <tr ng-repeat="Obj in pessoas" class="text-center">
+                <td>
+                    {{Obj.IdPessoa}}
+                </td>
+                <td>
+                    {{Obj.Nome}}
+                </td>
+                <td>
+                    {{Obj.Idade}}
+                </td>
+                <td>
+                    {{Obj.Email}}
+                </td>
+                <td>
+                    {{Obj.Skype}}
+                </td>
+                <td>
+                    {{Obj.Cidade}}
+                </td>
+                <td>
+                    {{Obj.Telefone}}
+                </td>
+                <td>
+                    {{Obj.Disponibilidade}}
+                </td>
+                <td>
+                    {{Obj.Horario}}
+                </td>
+                <td class="hidden">
+                    {{Obj.Experiencias}}
+                </td>
+                <td class="hidden">
+                    {{Obj.TipoConta}}
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-warning" ng-click="EditarPessoa(Obj)">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </button>
+                    <button type="submit" class="btn btn-danger" ng-click="DeletePessoa(Obj)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <!-- EndTable -->
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog" style=" width: 1200px; max-width:1400px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center" >Cadastro</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!---Dados-->
+                            <br />
+                            <div class="row">
+                                <input type="hidden" class="form-control" ng-model="F_IdPessoa" />
+                                <div class="col-md-3">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" required placeholder="Nome" ng-model="F_Nome">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" required placeholder="Email" ng-model="F_Email">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Telefone</label>
+                                    <input type="text" class="form-control" placeholder="Telefone" ng-model="F_Telefone">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Idade</label>
+                                    <input type="number" class="form-control" placeholder="Idade" ng-model="F_Idade">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Skype</label>
+                                    <input type="text" class="form-control" placeholder="Skype" ng-model="F_Skype">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Cidade</label>
+                                    <input type="text" class="form-control" placeholder="Cidade" ng-model="F_Cidade">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Estado</label>
+                                    <input type="text" class="form-control" placeholder="Estado" ng-model="F_Estado">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Portfolio</label>
+                                    <input type="text" class="form-control" placeholder="Portfolio" ng-model="F_Portfolio">
+                                </div>
+                            </div>
+
+                            <!---Dados Bancarios-->
+                            <br />
+                            <legend class="text-center">Dados Bancários</legend>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Nome</label>
+                                    <input type="text" class="form-control" placeholder="Nome" ng-model="F_NomePessoaBanco">
+                                    <br />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>CPF</label>
+                                    <input type="text" class="form-control" placeholder="CPF" ng-model="F_CPF">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Nome Banco</label>
+                                    <input type="text" class="form-control" placeholder="Ex:Caixa/Itau" ng-model="F_NomeBanco">
+                                    <br />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tipo Conta</label>
+                                    <select class="form-control" ng-model="tipocontasselecionado">
+                                        <option ng-repeat="item in tipocontas" value="{{item}}">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Agência</label>
+                                    <input type="text" class="form-control" placeholder="Agência" ng-model="F_Agencia">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Nr Conta</label>
+                                    <input type="text" class="form-control" placeholder="Nr. Conta" ng-model="F_NrConta">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>OP Conta</label>
+                                    <input type="text" class="form-control" placeholder="OP Conta" ng-model="F_OPConta">
+                                </div>
+                            </div>
+
+                            <!---Trabalho-->
+                            <br />
+                            <legend class="text-center">Trabalho</legend>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-3">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Disponibilidade</label>
+                                    <select class="form-control" ng-model="disponibilidadesselecionado">
+                                        <option ng-repeat="item in disponibilidades" value="{{item}}">{{item}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Horario</label>
+                                    <select class="form-control" ng-model="horariosselecionado">
+                                        <option ng-repeat="item in horarios" value="{{item}}">{{item}}</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3">
+                                </div>
+                            </div>
+
+                            <!---Experiência-->
+                            <br />
+                            <legend class="text-center">Experiência</legend>
+                            <br />
+                            <div class="row">
+                                <nav class="navbar navbar-default">
+                                    <div class="container-fluid">
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Linguagem</label>
+                                            <input type="text" class="form-control" placeholder="Ex: JQquery" ng-model="F_Linguagem">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Nível</label>
+                                            <select class="form-control" ng-model="nivelselecionado">
+                                                <option ng-repeat="item in niveis" value="{{item}}">{{item}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <label>&nbsp;</label>
+                                            <button type="submit" class="btn btn-success" ng-click="AdicionarExperiencia(nivel.selected)">
+                                                Adicionar <i class="glyphicon glyphicon-plus-sign"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-2">
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="row">
+                                <table cellpadding="12" class="table table-bordered table-hover">
+                                    <tr class="text-center" style="background-color: #828282">
+                                        <td>
+                                            <b>ID</b>
+                                        </td>
+                                        <td>
+                                            <b>Descrição</b>
+                                        </td>
+                                        <td>
+                                            <b>Nível</b>
+                                        </td>
+                                        <td>
+                                            <b>Opções</b>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="Exp in experiencias" class="text-center">
+                                        <td>
+                                            {{Exp.IdPessoa}}
+                                        </td>
+                                        <td>
+                                            {{Exp.Nome}}
+                                        </td>
+                                        <td>
+                                            {{Exp.Nivel}}
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-danger" ng-click="RemoverExperiencia(Exp)">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btnSave" class="btn btn-success" ng-click="GravarPessoa()">
+                            Gravar <i class="glyphicon glyphicon-ok"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- EndModal-->
+    </div>
+    <div>
+        @Html.Hidden("IdPessoa_")
+    </div>
+</div>
+
+
